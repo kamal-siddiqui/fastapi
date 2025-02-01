@@ -9,3 +9,12 @@ class Blog(Base):
     title = Column(String(255))
     no_of_pages = Column(Integer, nullable=True, default=0)
     description = Column(String(255))
+
+class User(Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255))
+    email = Column(String(255), unique=True)
+    password = Column(String(255))
+
+    
