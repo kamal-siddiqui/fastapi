@@ -17,7 +17,7 @@ async def all_user(db: Session = Depends(get_db)):
 
 @router.get('/get/{id}', status_code=status.HTTP_200_OK, response_model=ShowUser)
 async def get(id:int, db: Session = Depends(get_db)):
-    res = await users.get(id, db)
+    res = await users.user(id, db)
     return res
 
 @router.post('/create', status_code=status.HTTP_201_CREATED, response_model=ShowUser)
