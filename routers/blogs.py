@@ -10,7 +10,6 @@ router = APIRouter(
     prefix='/blog'
 )
 
-
 @router.get("/blog/list", status_code=status.HTTP_200_OK, response_model=List[showBlog], tags=["Blog"])
 async def get_blog_list(db: Session = Depends(get_db)):
     db_blog = db.query(Blog).all()
