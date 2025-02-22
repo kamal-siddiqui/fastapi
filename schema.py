@@ -34,6 +34,9 @@ class showBlog(BaseModel):
     class Config:
         orm_mode = True
 
+class TokenData(BaseModel):
+    email: Optional[str] = None
+
 
 
  

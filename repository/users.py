@@ -1,9 +1,7 @@
-from fastapi import status, Depends, HTTPException
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from model import User
-from passlib.context import CryptContext
-
-pass_cnt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from hashing import Hash
 
 async def all_user(db: Session):
     db_data = db.query(User).all()
@@ -21,7 +19,7 @@ async def create_user(request, db: Session):
     db_data = User(
         name = request.name,
         email = request.email,
-        password = pass_cnt.hash(request.password)
+        password = Hash.bcrypt(request.password)
     )
     db.add(db_data)
     db.commit()

@@ -1,5 +1,4 @@
-from fastapi import status, HTTPException, Response
-from typing import List
+from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from model import Blog
 

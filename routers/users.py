@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from schema import CreateUser, ShowUser
 from dependency import get_db
 from repository import users
+from oauth2 import get_current_user
 
 router = APIRouter(
     tags=["User"],
@@ -16,7 +17,7 @@ async def all_user(db: Session = Depends(get_db)):
     return res
 
 @router.get('/get/{id}', status_code=status.HTTP_200_OK, response_model=ShowUser)
-async def get(id:int, db: Session = Depends(get_db)):
+async def get(id:int, db: Session = Depends(get_db), get_current_user: CreateUser = Depends(get_current_user)):
     res = await users.user(id, db)
     return res
 
@@ -26,11 +27,11 @@ async def create(request:CreateUser, db: Session = Depends(get_db)):
     return res
 
 @router.put('/edit/{id}', status_code=status.HTTP_200_OK)
-async def edit(id:int, request:CreateUser, db: Session = Depends(get_db)):
+async def edit(id:int, request:CreateUser, db: Session = Depends(get_db), get_current_user: CreateUser = Depends(get_current_user)):
     res = await users.edit(id, request, db)
     return res
 
 @router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
-async def delete(id: int, db: Session = Depends(get_db)):
+async def delete(id: int, db: Session = Depends(get_db), get_current_user: CreateUser = Depends(get_current_user)):
     res = await users.delete(id, db)
     return res
